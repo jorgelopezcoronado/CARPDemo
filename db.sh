@@ -19,10 +19,9 @@ sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22
 iptables-restore < /etc/sysconfig/iptables;
 echo "10.0.255.103 web web.demo.telecom-sudparis.eu" >> /etc/hosts;
 rm -f /tmp/mysql_init;
-myip=`curl -s http://whatismyip.host/ | grep -e ipaddress | grep -v N/A | sed -e 's/.*>\(.*\)<.*/\1/'`;
 
 #get db file
-## mysql -u root -pd3m0P4ss++ -D < https://raw.githubusercontent.com/jorgelopezcoronado/CARPDemo/master/db.dump
-
-#mysql -u root -pd3m0P4ss++ -e "UPDATE wp_options SET option_value = replace(option_value, 'http://%.%.%.%', 'http://157.159.233.67') WHERE option_name = 'home' OR option_name = 'siteurl';"
+curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/jorgelopezcoronado/CARPDemo/master/db.dump > /tmp/db.dump
+mysql -u root -pd3m0P4ss++ -D wp < /tmp/db.dump
+rm -f /tmp/db.dump
 

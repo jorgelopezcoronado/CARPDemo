@@ -1,7 +1,7 @@
 sed -i /etc/resolv.conf -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum update && yum -y upgrade;
 hostname web.demo.carp.telecom-suparis.eu 
-yum -y install httpd php php-mysqlnd wget;
+yum -y install httpd php php-mysqlnd wget mysql-community-client;
 chkconfig httpd on;
 echo "10.0.255.102 db db.demo.carp.telecom-sudparis.eu" >> /etc/hosts;
 iptables-save > /etc/sysconfig/iptables;
@@ -21,3 +21,12 @@ sed -i /etc/php.ini -e 's/upload_max_filesize = 2M/upload_max_filesize = 5M/';
 chgrp apache wp-content/; 
 chmod g+w wp-content/;
 service httpd start;
+
+myip=`curl -s http://whatismyip.host/ | grep -e ipaddress | grep -v N/A | sed -e 's/.*>\(.*\)<.*/\1/'`;
+mysql -u wordpress_user -p94-fP+*.pJ -H db.demo.carp.telecom-sudparis.eu -D wp -e "UPDATE wp_options SET option_value = replace(option_value, 'http://%.%.%.%/', 'http://$myip/') WHERE option_name = 'home' OR option_name = 'siteurl';";
+
+mysql -u wordpress_user -p94-fP+*.pJ -H db.demo.carp.telecom-sudparis.eu -D wp -e "UPDATE wp_posts SET guid = replace(guid, 'http://%.%.%.%/','http://$myip/');";
+
+mysql -u wordpress_user -p94-fP+*.pJ -H db.demo.carp.telecom-sudparis.eu -D wp -e "UPDATE wp_posts SET post_content = replace(post_content, 'http://%.%.%.%/','http://$myip/');";
+
+mysql -u wordpress_user -p94-fP+*.pJ -H db.demo.carp.telecom-sudparis.eu -D wp -e "UPDATE wp_postmeta SET meta_value = replace(meta_value, 'http://%.%.%.%/','http://$myip/');"; 
