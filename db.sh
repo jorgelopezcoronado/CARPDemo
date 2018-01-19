@@ -17,7 +17,7 @@ mysql -u root -pd3m0P4ss++ -e "CREATE DATABASE wp; CREATE USER 'wordpress_user'@
 iptables-save > /etc/sysconfig/iptables;
 sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT\n-A IN_public_allow -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW -j ACCEPT/g';
 iptables-restore < /etc/sysconfig/iptables;
-echo "10.0.255.103 web web.demo.telecom-sudparis.eu" >> /etc/hosts;
+echo "10.0.255.151 web web.demo.telecom-sudparis.eu" >> /etc/hosts;
 rm -f /tmp/mysql_init;
 
 #get db file

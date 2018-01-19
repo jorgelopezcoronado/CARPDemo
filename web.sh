@@ -3,7 +3,7 @@ yum update && yum -y upgrade;
 hostname web.demo.carp.telecom-suparis.eu 
 yum -y install httpd php php-mysqlnd wget mysql-community-client;
 chkconfig httpd on;
-echo "10.0.255.102 db db.demo.carp.telecom-sudparis.eu" >> /etc/hosts;
+echo "10.0.255.150 db db.demo.carp.telecom-sudparis.eu" >> /etc/hosts;
 iptables-save > /etc/sysconfig/iptables;
 sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT\n-A IN_public_allow -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT/g';
 iptables-restore < /etc/sysconfig/iptables;
