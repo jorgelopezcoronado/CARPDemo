@@ -12,7 +12,7 @@ FLUSH PRIVILEGES;" > /tmp/mysql_init;
 mysqld --skip-grant-tables --skip-networking --user=mysql --init-file=/tmp/mysql_init&
 sleep 5;
 kill -9 `ps -eHf | grep mysqld | grep -v grep | awk '{print $2}'`
-rm -f /tmp/mysql_init;
+#rm -f /tmp/mysql_init;
 service mysqld start;
 mysql -u root -pd3m0P4ss++ -e "CREATE DATABASE wp; CREATE USER 'wordpress_user'@'%' IDENTIFIED BY '94-fP+*.pJ'; GRANT ALL PRIVILEGES ON wp.* TO 'wordpress_user'@'%'; FLUSH PRIVILEGES";
 iptables-save > /etc/sysconfig/iptables;
