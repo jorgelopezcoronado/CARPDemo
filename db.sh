@@ -1,4 +1,4 @@
-sed -i /etc/resolve -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
+sed -i /etc/resolv.conf -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum update && yum -y upgrade;
 dnf -y install https://dev.mysql.com/get/mysql57-community-release-fc24-10.noarch.rpm;
 dnf -y install mysql-community-server;
