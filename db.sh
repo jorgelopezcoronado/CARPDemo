@@ -10,6 +10,7 @@ echo "UPDATE mysql.user
     WHERE User = 'root'; 
 FLUSH PRIVILEGES;" > /tmp/mysql_init;
 mysqld --skip-grant-tables --skip-networking --user=mysql --init-file=/tmp/mysql_init&
+sleep 5;
 kill -9 `ps -eHf | grep mysqld | grep -v grep | awk '{print $2}'`
 rm -f /tmp/mysql_init;
 service mysqld start;
