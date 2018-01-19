@@ -1,6 +1,6 @@
+sed -i /etc/resolve -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum update && yum -y upgrade;
 hostname web.demo.carp.telecom-suparis.eu 
-sed -i /etc/resolve -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum -y install httpd php php-mysqlnd wget;
 chkconfig httpd on;
 echo "10.0.255.102 db db.demo.carp.telecom-sudparis.eu" >> /etc/hosts;

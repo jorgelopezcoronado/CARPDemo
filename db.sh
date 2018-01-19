@@ -1,8 +1,8 @@
+sed -i /etc/resolve -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum update && yum -y upgrade;
 dnf -y install https://dev.mysql.com/get/mysql57-community-release-fc24-10.noarch.rpm;
 dnf -y install mysql-community-server;
 hostname db.demo.carp.telecom-suparis.eu 
-sed -i /etc/resolve -e 's/search=.*/ssearch=demo.telecom-sudparis.eu/g'
 yum -y install mysql-community-server;
 chkconfig mysqld on;
 echo "UPDATE mysql.user
