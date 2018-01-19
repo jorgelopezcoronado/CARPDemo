@@ -15,10 +15,10 @@ mysql -u root -pd3m0P4ss++ -e "shutdown";
 service mysqld start;
 mysql -u root -pd3m0P4ss++ -e "CREATE DATABASE wp; CREATE USER 'wordpress_user'@'%' IDENTIFIED BY '94-fP+*.pJ'; GRANT ALL PRIVILEGES ON wp.* TO 'wordpress_user'@'%'; FLUSH PRIVILEGES";
 iptables-save > /etc/sysconfig/iptables;
-sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT\n-A IN_public_allow -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT/g';
+sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT\n-A IN_public_allow -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW -j ACCEPT/g';
 iptables-restore < /etc/sysconfig/iptables;
 echo "10.0.255.103 web web.demo.telecom-sudparis.eu" >> /etc/hosts;
-#rm -f /tmp/mysql_init;
+rm -f /tmp/mysql_init;
 myip=`curl -s http://whatismyip.host/ | grep -e ipaddress | grep -v N/A | sed -e 's/.*>\(.*\)<.*/\1/'`;
 
 #get db file
