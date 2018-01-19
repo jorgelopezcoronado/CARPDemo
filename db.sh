@@ -1,6 +1,6 @@
 yum update && yum -y upgrade;
-dnf install https://dev.mysql.com/get/mysql57-community-release-fc24-10.noarch.rpm;
-dnf install mysql-community-server;
+dnf -y install https://dev.mysql.com/get/mysql57-community-release-fc24-10.noarch.rpm;
+dnf -y install mysql-community-server;
 hostname db.demo.carp.telecom-suparis.eu 
 sed -i /etc/resolve -e 's/search=.*/ssearch=demo.telecom-sudparis.eu/g'
 yum -y install mysql-community-server;
@@ -17,6 +17,11 @@ mysql -u root -pd3m0P4ss++ -e "CREATE DATABASE wp; CREATE USER 'wordpress_user'@
 iptables-save > /etc/sysconfig/iptables;
 sed -i /etc/sysconfig/iptables -e 's/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT/-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT\n-A IN_public_allow -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT/g';
 iptables-restore < /etc/sysconfig/iptables;
-service iptables restart;
-echo "10.0.255.103 web web.demo.telecom-sudparis.eu" >> /etc/hosts
+echo "10.0.255.103 web web.demo.telecom-sudparis.eu" >> /etc/hosts;
+myip=`curl -s http://whatismyip.host/ | grep -e ipaddress | grep -v N/A | sed -e 's/.*>\(.*\)<.*/\1/'`;
+
+#get db file
+## mysql -u root -pd3m0P4ss++ -D < https://raw.githubusercontent.com/jorgelopezcoronado/CARPDemo/master/db.dump
+
+#mysql -u root -pd3m0P4ss++ -e "UPDATE wp_options SET option_value = replace(option_value, 'http://%.%.%.%', 'http://157.159.233.67') WHERE option_name = 'home' OR option_name = 'siteurl';"
 
