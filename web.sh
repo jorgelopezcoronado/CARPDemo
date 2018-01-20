@@ -1,7 +1,9 @@
 sed -i /etc/resolv.conf -e 's/search=.*/search=demo.telecom-sudparis.eu/g'
 yum update && yum -y upgrade;
-hostname web.demo.carp.telecom-suparis.eu 
-yum -y install httpd php php-mysqlnd wget mysql-community-client;
+hostname web.demo.carp.telecom-suparis.eu;
+dnf -y install https://dev.mysql.com/get/mysql57-community-release-fc24-10.noarch.rpm;
+dnf -y install mysql-community-client;
+yum -y install httpd php php-mysqlnd wget;
 chkconfig httpd on;
 echo "10.0.255.150 db db.demo.carp.telecom-sudparis.eu" >> /etc/hosts;
 iptables-save > /etc/sysconfig/iptables;
