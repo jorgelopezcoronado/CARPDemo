@@ -9,6 +9,7 @@ echo "UPDATE mysql.user
     SET authentication_string = PASSWORD('d3m0P4ss++'), password_expired = 'N'
     WHERE User = 'root'; 
 FLUSH PRIVILEGES;" > /tmp/mysql_init;
+service mysqld start && sleep 5 && service mysqld stop;
 mysqld --skip-grant-tables --skip-networking --user=mysql --init-file=/tmp/mysql_init&
 sleep 5;
 mysql -u root -pd3m0P4ss++ -e "shutdown";
